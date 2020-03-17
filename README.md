@@ -1,2 +1,2 @@
 # Engineering-Project
-Code I used for my projects in Engineering class
+This repository contains all the code I used for my projects in Engineering class
