@@ -1,0 +1,42 @@
+import RPi.GPIO as GPIO
+
+in3 = 16
+in4 = 20
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(in3,GPIO.OUT)
+GPIO.setup(in4,GPIO.OUT)
+GPIO.output(in3,GPIO.LOW)
+GPIO.output(in4,GPIO.LOW)
+
+print("/n")
+print("s-stop u-up d-down e-exit")
+print("/n")
+
+while(1):
+
+    x=raw_input('> ')
+    
+    if x=='s':
+        print("stop")
+        GPIO.output(in3,GPIO.LOW)
+        GPIO.output(in4,GPIO.LOW)
+    
+    elif x=='u':
+        print("up")
+        GPIO.output(in3,GPIO.HIGH)
+        GPIO.output(in4,GPIO.LOW)
+    
+    elif x=='d':
+        print("down")
+        GPIO.output(in3,GPIO.LOW)
+        GPIO.output(in4,GPIO.HIGH)
+    
+    elif x=='e':
+        GPIO.cleanup()
+        print("GPIO Clean up")
+        break
+    
+    else:
+        print("<<< wrong data >>>")
+        print("please enter the defined data to continue.....")
