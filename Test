@@ -1,0 +1,8 @@
+import tkinter as tkr
+Log = []
+
+def char(event):
+  print("pressed", repr(event.char))
+  key1 = repr(event.char)
+  Log.append(key1)
+  print(Log)
