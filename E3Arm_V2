@@ -25,7 +25,7 @@ while True:
   
   signal.setitimer(signal.ITIMER_REAL,0.155) #starts alarm for 0.155 sec
   ch = sys.stdin.read(1) #saves one keystroke as variable
-  signal.setitimer(signal.ITEMER_REAL,0) #resets alarm and ch variable
+  signal.setitimer(signal.ITIMER_REAL,0) #resets alarm and ch variable
   
   if ch == 'q': #press q to quit
     GPIO.cleanup()
