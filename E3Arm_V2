@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import sys, tty, termios, signal
 
-inputs = [16,20]
+inputs = [5,6,16,20]
 
 def interrupted(signum,frame):
   for x in inputs:
@@ -12,11 +12,21 @@ signal.signal(signal.SIGALRM, interrupted) #calls interrupted when alarm stops
 tty.setraw(sys.stdin.fileno()) #raw keystroke input, changes terminal settings
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setup(5,GPIO.OUT)
+GPIO.setup(6,GPIO.OUT
 GPIO.setup(16,GPIO.OUT)
+GPIO.setup(18,GPIO.OUT)
 GPIO.setup(20,GPIO.OUT)
+GPIO.setup(25,GPIO.OUT)
+GPIO.output(5,GPIO.LOW)
+GPIO.output(6,GPIO.LOW)
 GPIO.output(16,GPIO.LOW)
 GPIO.output(20,GPIO.LOW)
+p=GPIO.PWM(18,1000)
+q=GPIO.PWM(25,1000)
 
+p.start(100)
+q.start(100)
 print("\n")
 print("q-quit 1-up 2-down")
 print("\n")
@@ -34,8 +44,12 @@ while True:
     
   elif ch == '1': #press 1 to go up
     GPIO.output(16,GPIO.HIGH)
-    GPIO.output(20,GPIO.LOW)
     
   elif ch == '2': #press 2 to go down
-    GPIO.output(16,GPIO.LOW)
     GPIO.output(20,GPIO.HIGH)
+    
+  elif ch == '3': #press 3 to go down
+    GPIO.output(5,GPIO.HIGH)
+    
+  elif ch == '4': #press 4 to go down
+    GPIO.output(6,GPIO.HIGH)
