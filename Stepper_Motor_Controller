@@ -8,8 +8,6 @@ out4 = 12
 pulse = 1
 
 i=0
-positive=0
-negative=0
 y=0
 
 GPIO.setmode(GPIO.BCM)
@@ -17,21 +15,31 @@ GPIO.setup(out1,GPIO.OUT)
 GPIO.setup(out2,GPIO.OUT)
 GPIO.setup(out3,GPIO.OUT)
 GPIO.setup(out4,GPIO.OUT)
-GPIO.output(out1,GPIO.LOW)
-GPIO.output(out2,GPIO.LOW)
-GPIO.output(out3,GPIO.LOW)
-GPIO.output(out4,GPIO.LOW)
 
 print("First calibrate by giving some +ve and -ve values.....")
 
 while(1):
   
-  w = raw_input()
-  x = int(w)
+  GPIO.output(out1,GPIO.LOW)
+  GPIO.output(out2,GPIO.LOW)
+  GPIO.output(out3,GPIO.LOW)
+  GPIO.output(out4,GPIO.LOW)
+  x = 0
+  
+  w = raw_input('> ')
+  
+  def repInt(w):
+    try:
+      int(w)
+      return True
+    except ValueError:
+      return False
+  
+  if repInt(w)==True:
+    x = int(w)
   
   if x>0 and x<=400:
     for y in range(x,0,-1):
-      positive=1
       
       if i==0:
         GPIO.output(out1,GPIO.HIGH)
@@ -41,9 +49,47 @@ while(1):
         time.sleep(pulse)
             
       elif i==1:
-        GPIO.output(out1,GPIO.HIGH)
+        GPIO.output(out1,GPIO.LOW)
         GPIO.output(out2,GPIO.HIGH)
         GPIO.output(out3,GPIO.LOW)
+        GPIO.output(out4,GPIO.LOW)
+        time.sleep(pulse)
+          
+      elif i==2:  
+        GPIO.output(out1,GPIO.LOW)
+        GPIO.output(out2,GPIO.LOW)
+        GPIO.output(out3,GPIO.HIGH)
+        GPIO.output(out4,GPIO.LOW)
+        time.sleep(pulse)
+          
+      elif i==3:    
+        GPIO.output(out1,GPIO.LOW)
+        GPIO.output(out2,GPIO.LOW)
+        GPIO.output(out3,GPIO.LOW)
+        GPIO.output(out4,GPIO.HIGH)
+        time.sleep(pulse)
+        
+      if i==3:
+        i=0
+        continue
+        
+      i=i+1
+
+  if x<0 and x>=-400:
+    x=x*-1
+    for y in range(x,0,-1):
+      
+      if i==0:
+        GPIO.output(out1,GPIO.LOW)
+        GPIO.output(out2,GPIO.LOW)
+        GPIO.output(out3,GPIO.LOW)
+        GPIO.output(out4,GPIO.HIGH)
+        time.sleep(pulse)
+            
+      elif i==1:
+        GPIO.output(out1,GPIO.LOW)
+        GPIO.output(out2,GPIO.LOW)
+        GPIO.output(out3,GPIO.HIGH)
         GPIO.output(out4,GPIO.LOW)
         time.sleep(pulse)
           
@@ -55,46 +101,18 @@ while(1):
         time.sleep(pulse)
           
       elif i==3:    
-        GPIO.output(out1,GPIO.LOW)
-        GPIO.output(out2,GPIO.HIGH)
-        GPIO.output(out3,GPIO.HIGH)
-        GPIO.output(out4,GPIO.LOW)
-        time.sleep(pulse)
-          
-      elif i==4:  
-        GPIO.output(out1,GPIO.LOW)
-        GPIO.output(out2,GPIO.LOW)
-        GPIO.output(out3,GPIO.HIGH)
-        GPIO.output(out4,GPIO.LOW)
-        time.sleep(pulse)
-          
-      elif i==5:
-        GPIO.output(out1,GPIO.LOW)
-        GPIO.output(out2,GPIO.LOW)
-        GPIO.output(out3,GPIO.HIGH)
-        GPIO.output(out4,GPIO.HIGH)
-        time.sleep(pulse)
-          
-      elif i==6:    
-        GPIO.output(out1,GPIO.LOW)
-        GPIO.output(out2,GPIO.LOW)
-        GPIO.output(out3,GPIO.LOW)
-        GPIO.output(out4,GPIO.HIGH)
-        time.sleep(pulse)
-          
-      elif i==7:    
         GPIO.output(out1,GPIO.HIGH)
         GPIO.output(out2,GPIO.LOW)
         GPIO.output(out3,GPIO.LOW)
-        GPIO.output(out4,GPIO.HIGH)
+        GPIO.output(out4,GPIO.LOW)
         time.sleep(pulse)
         
-      if i==7:
+      if i==3:
         i=0
         continue
         
       i=i+1
-
+      
   elif w=='q':
     GPIO.cleanup()
     break
