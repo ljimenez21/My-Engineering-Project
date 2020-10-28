@@ -57,7 +57,7 @@ e.start(100)
 f.start(100)
 
 print("\n")
-print("q-quit w-forward s-backwards a-left s-right")
+print("q-quit w-forward s-backwards a-left d-right")
 print("\n")
 
 while True:
