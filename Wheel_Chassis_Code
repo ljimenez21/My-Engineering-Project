@@ -49,6 +49,7 @@ d=GPIO.PWM(en4,1000)
 e=GPIO.PWM(en6,1000)
 f=GPIO.PWM(en7,1000)
 
+#Sets initial speed of motors
 a.start(100)
 b.start(100)
 c.start(100)
